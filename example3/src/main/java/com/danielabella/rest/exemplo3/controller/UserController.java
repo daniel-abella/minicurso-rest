@@ -25,26 +25,30 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/user", method = RequestMethod.GET)
-	public ResponseEntity< List<User> > listAllUsers() {
-		return new ResponseEntity< List<User> >
-		(userService.listAllUsers(), HttpStatus.OK);
+	public ResponseEntity< List<User> > listarUsuarios() {
+		
+		List<User> listaUsuarios = userService.listarTodosUsuarios();
+		
+		return new ResponseEntity< List<User> > (listaUsuarios, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable String id) {
 		
-		User user = userService.getById(id);
+		User user = userService.buscarUsuarioPorId(id);
 		
-		return user == null ? 
-				new ResponseEntity<User>(HttpStatus.NOT_FOUND) : 
-					new ResponseEntity<User>(user, HttpStatus.OK);
+		if(user == null) {
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		}		
 	}
 	
 	@RequestMapping(value="/user", method = RequestMethod.POST)
 	public ResponseEntity<String> createUser(@RequestBody User user) {
 
 		try {
-			userService.save(user);
+			userService.inserirUsuario(user);
 			return new ResponseEntity<String>(HttpStatus.CREATED);
 
 		 } catch (Exception e) {

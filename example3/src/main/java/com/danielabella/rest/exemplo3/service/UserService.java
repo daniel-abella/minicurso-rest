@@ -25,16 +25,16 @@ public class UserService {
         this.repository = repository;
     }
     
-    public User getById(String id) {    
+    public User buscarUsuarioPorId(String id) {    
     	return repository.findOne(id);
     }
     
-	public List<User> listAllUsers() {
+	public List<User> listarTodosUsuarios() {
 		return repository.findAll();
 	}
 	
     @Transactional
-    public User save(@NotNull @Valid final User participant) throws UserAlreadyExistsException {
+    public User inserirUsuario(@NotNull @Valid final User usuario) throws UserAlreadyExistsException {
     	
     	/*
         User existing = repository.findByName(participant.getName());
@@ -44,7 +44,7 @@ public class UserService {
         }
         */
         
-        return repository.save(participant);
+        return repository.save(usuario);
     }
 
 	public UserRepository getRepository() {

@@ -2,17 +2,10 @@ package com.danielabella.rest.exemplo2;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -7799369695818057571L;
 	
-	@Id
 	private int id;
 	private String name;
 	private String address;

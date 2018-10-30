@@ -6,6 +6,5 @@ import com.danielabella.rest.exemplo3.domain.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
-//	public User findByName(String name);
 	
 }
