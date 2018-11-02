@@ -17,41 +17,38 @@ import com.danielabella.rest.exemplo3.service.UserService;
 @RestController
 public class UserController {
 
-	private final UserService userService;
-
 	@Autowired
-	public UserController(final UserService userService) {
-		this.userService = userService;
-	}
+	private UserService userService;
 
-	@RequestMapping(value="/user", method = RequestMethod.GET)
-	public ResponseEntity< List<User> > listarUsuarios() {
-		
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> listarUsuarios() {
+
 		List<User> listaUsuarios = userService.listarTodosUsuarios();
-		
-		return new ResponseEntity< List<User> > (listaUsuarios, HttpStatus.OK);
+
+		return new ResponseEntity<List<User>>(listaUsuarios, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
-	public ResponseEntity<User> getUser(@PathVariable String id) {
-		
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	public ResponseEntity<User> obterUsuario(@PathVariable String id) {
+
 		User user = userService.buscarUsuarioPorId(id);
-		
-		if(user == null) {
+
+		if (user == null) {
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<User>(user, HttpStatus.OK);
-		}		
+		}
 	}
-	
-	@RequestMapping(value="/user", method = RequestMethod.POST)
-	public ResponseEntity<String> createUser(@RequestBody User user) {
+
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public ResponseEntity<String> criarUsuario(@RequestBody User user) {
 
 		try {
 			userService.inserirUsuario(user);
+			
 			return new ResponseEntity<String>(HttpStatus.CREATED);
 
-		 } catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -60,4 +57,9 @@ public class UserController {
 	public UserService getUserService() {
 		return userService;
 	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 }
