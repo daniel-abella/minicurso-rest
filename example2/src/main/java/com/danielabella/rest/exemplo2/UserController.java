@@ -23,6 +23,7 @@ public class UserController {
 		listaUsuariosFake.add(new User(1,"Daniel","End1"));
 		listaUsuariosFake.add(new User(2,"Ruan","End2"));
 		listaUsuariosFake.add(new User(3,"Atylla","End3"));
+		listaUsuariosFake.add(new User(4,"Wesley","End4"));
 		
 		return new ResponseEntity< List<User> >(listaUsuariosFake, HttpStatus.OK);
 	}
