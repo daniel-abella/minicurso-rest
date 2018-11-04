@@ -21,7 +21,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/usuario", method = RequestMethod.POST)
-	public String createParticipant(@RequestBody User user) {
+	public String criarUsuario(@RequestBody User user) {
 
 		try {
 			System.out.println(user.getName());
@@ -32,11 +32,6 @@ public class UserController {
 		}
 		
 		return null;
-	}
-	
-	@RequestMapping(value="/usuario/{identificador}", method = RequestMethod.PUT)
-	public String atualizarUsuario(@PathVariable String identificador) {
-		return "Vamos atualizar quem tem o ID " + identificador;
 	}
 
 	@RequestMapping(value="/usuario/{identificador}", method = RequestMethod.DELETE)

@@ -7,7 +7,7 @@
 		<version>1.3.2.RELEASE</version>
 	</parent>
 	<groupId>com.danielabella.rest</groupId>
-	<artifactId>example3</artifactId>
+	<artifactId>example4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<build>
