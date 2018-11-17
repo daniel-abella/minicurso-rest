@@ -21,11 +21,11 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> listarUsuarios() {
+	public ResponseEntity< List<User> > listarUsuarios() {
 
 		List<User> listaUsuarios = userService.listarTodosUsuarios();
 
-		return new ResponseEntity<List<User>>(listaUsuarios, HttpStatus.OK);
+		return new ResponseEntity< List<User> >(listaUsuarios, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
@@ -41,16 +41,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseEntity<String> criarUsuario(@RequestBody User user) {
+	public ResponseEntity<User> criarUsuario(@RequestBody User user) {
 
 		try {
-			userService.inserirUsuario(user);
-			
-			return new ResponseEntity<String>(HttpStatus.CREATED);
+			User usuarioInserido = userService.inserirUsuario(user);
+			return new ResponseEntity<User>(usuarioInserido, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

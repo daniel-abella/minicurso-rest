@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.danielabella.rest.exemplo3.domain.User;
+import com.danielabella.rest.exemplo3.exceptions.UserAlreadyExistsException;
 import com.danielabella.rest.exemplo3.service.UserService;
 
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> listarUsuarios() {
+	public ResponseEntity< List<User> > listarUsuarios() {
 
 		List<User> listaUsuarios = userService.listarTodosUsuarios();
 
@@ -41,16 +42,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseEntity<String> criarUsuario(@RequestBody User user) {
+	public ResponseEntity<User> criarUsuario(@RequestBody User user) {
 
 		try {
-			userService.inserirUsuario(user);
+			User usuarioInserido = userService.inserirUsuario(user);
 			
-			return new ResponseEntity<String>(HttpStatus.CREATED);
+			return new ResponseEntity<User>(usuarioInserido, HttpStatus.CREATED);
 
+		} catch(UserAlreadyExistsException e) {
+			e.printStackTrace();
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
